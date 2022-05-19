@@ -17,7 +17,39 @@ module.exports = () => {
       filename: "[name].bundle.js",
       path: path.resolve(__dirname, "dist"),
     },
-    plugins: [],
+    plugins: [
+      // Webpack plugin that generates our html file and injects our bundles.
+      new HtmlWebpackPlugin({
+        template: "./index.html",
+        title: "J.A.T.E",
+      }),
+
+      // Injects our custom service worker
+      new InjectManifest({
+        swSrc: "./src-sw.js",
+        swDest: "src-sw.js",
+      }),
+
+      // Creates a manifest.json file.
+      new WebpackPwaManifest({
+        fingerprints: false,
+        inject: true,
+        name: "JUST ANOTHER TEXT EDITOR",
+        short_name: "J.A.T.E",
+        description: "Just another text editor in the browser",
+        background_color: "#22a374",
+        theme_color: "#22a374",
+        start_url: "./",
+        publicPath: "./",
+        icons: [
+          {
+            src: path.resolve("src/images/logo.png"),
+            sizes: [96, 128, 192, 256, 384, 512],
+            destination: path.join("assets", "icons"),
+          },
+        ],
+      }),
+    ],
 
     module: {
       // CSS loaders
