@@ -18,27 +18,27 @@ module.exports = () => {
       path: path.resolve(__dirname, "dist"),
     },
     plugins: [
-      // Webpack plugin that generates our html file and injects our bundles.
+      // Generate index.html titled J.A.T.E
       new HtmlWebpackPlugin({
         template: "./index.html",
         title: "J.A.T.E",
       }),
 
-      // Injects our custom service worker
+      // Injects the custom service worker
       new InjectManifest({
         swSrc: "./src-sw.js",
         swDest: "src-sw.js",
       }),
 
-      // Creates a manifest.json file.
+      // Creating a manifest.json file with site details
       new WebpackPwaManifest({
         fingerprints: false,
         inject: true,
         name: "JUST ANOTHER TEXT EDITOR",
         short_name: "J.A.T.E",
         description: "Just another text editor in the browser",
-        background_color: "#22a374",
-        theme_color: "#22a374",
+        background_color: "#225ca3",
+        theme_color: "#225ca3",
         start_url: "./",
         publicPath: "./",
         icons: [
@@ -61,7 +61,7 @@ module.exports = () => {
         {
           test: /\.m?js$/,
           exclude: /node_modules/,
-          // We use babel-loader in order to use ES6.
+          // loading babel loader
           use: {
             loader: "babel-loader",
             options: {
